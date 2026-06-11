@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Méthode de Chinois | 汉语学习平台 - 面向法语母语者</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9ff 0%, #eef2fa 100%);
+            color: #1e2a3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(120deg, #c73f1e, #a02b1a, #2c5f2d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+        .badge {
+            background: #ffe6e3;
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #b63a1a;
+            margin-top: 0.5rem;
+        }
+        .sub {
+            color: #4a627a;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* card style */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-left: 5px solid #c73f1e;
+            padding-left: 1rem;
+        }
+        .section-title i {
+            color: #c73f1e;
+            font-size: 1.5rem;
+        }
+
+        /* grille vocabulaire */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .word-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            text-align: center;
+            border: 1px solid #f0e2db;
+        }
+        .word-card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #2c3e2f;
+        }
+        .pinyin {
+            font-size: 1.1rem;
+            color: #b45f3b;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        .french {
+            font-size: 1rem;
+            color: #3b5c7a;
+            margin: 0.5rem 0;
+            font-weight: 500;
+        }
+        .sound-btn {
+            background: #f0eef7;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 0.6rem;
+            transition: 0.2s;
+            width: 100%;
+        }
+        .sound-btn i {
+            margin-right: 6px;
+            color: #c73f1e;
+        }
+        .sound-btn:hover {
+            background: #e2ddf5;
+        }
+
+        /* section dialogue */
+        .dialogue-box {
+            background: #fef5ed;
+            border-radius: 1.5rem;
+            padding: 1rem 1.5rem;
+        }
+        .dialogue-line {
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: baseline;
+        }
+        .chinese {
+            font-weight: 700;
+            font-size: 1.2rem;
+            background: #fff0e4;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        .phonetic {
+            font-size: 0.85rem;
+            color: #b9582c;
+        }
+        .french-dialog {
+            color: #2c5f7a;
+            font-style: italic;
+        }
+
+        /* zone d'exercice vocal (语音练习) */
+        .speech-area {
+            background: linear-gradient(115deg, #ffffff 0%, #faf7f2 100%);
+            border-radius: 1.8rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .practice-word {
+            background: #e9ecef;
+            border-radius: 2rem;
+            padding: 0.2rem 1rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .mic-btn {
+            background: #c73f1e;
+            border: none;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 6px 14px rgba(199, 63, 30, 0.3);
+        }
+        .mic-btn:hover {
+            background: #a53216;
+            transform: scale(1.02);
+        }
+        .feedback {
+            margin-top: 1rem;
+            font-weight: 500;
+            padding: 0.6rem;
+            border-radius: 1rem;
+        }
+
+        /* 数字人微课 */
+        .digital-human {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .avatar {
+            background: linear-gradient(145deg, #ffddd3, #ffcbbc);
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        }
+        .lesson-text {
+            flex: 1;
+            background: #fff5e9;
+            padding: 1rem 1.2rem;
+            border-radius: 2rem;
+        }
+        .btn-lesson {
+            background: #2c5f2d;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.4rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.8rem;
+        }
+
+        /* quiz */
+        .quiz-option {
+            background: white;
+            padding: 0.8rem 1rem;
+            margin: 0.6rem 0;
+            border-radius: 1.2rem;
+            border: 1px solid #e2d9d2;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .quiz-option:hover {
+            background: #ffe3d9;
+            transform: translateX(5px);
+        }
+        .quiz-feedback {
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        button {
+            background: none;
+            border: none;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            font-size: 0.85rem;
+            color: #5c6f87;
+        }
+        @media (max-width: 680px) {
+            .container {
+                padding: 1rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🇨🇳 汉语中文 · Le Chinois pour Francophones</h1>
+        <div class="badge">✨ Plateforme nouvelle génération | IA + Reconnaissance vocale ✨</div>
+        <p class="sub">Apprenez le mandarin avec des outils interactifs : cartes, conversation, IA vocale et micro-cours par humain numérique</p>
+    </div>
+
+    <!-- 1. 今日词汇 Vocabulaire du jour -->
+    <div class="card">
+        <div class="section-title">
+            <i class="fas fa-book-open"></i>
+            <span>📖 Mots du jour · 今日词汇</span>
+        </div>
+        <div class="vocab-grid" id="vocabGrid"></div>
+    </div>
+
+    <!-- 2. 对话模拟 Dialogue pratique -->
+    <div class="card">
+        <div class="section-title">
+            <i class="fas fa-comments"></i>
+            <span>💬 Dialogue en situation · 场景对话</span>
+        </div>
+        <div class="dialogue-box" id="dialogueContainer"></div>
+    </div>
+
+    <!-- 3. 语音练习最新技术 : 发音评测 (Web Speech API) -->
+    <div class="card">
+        <div class="section-title">
+            <i class="fas fa-microphone-alt"></i>
+            <span>🎤 Exercice vocal intelligent · 智能语音练习</span>
+        </div>
+        <div class="speech-area">
+            <p><strong>✍️ Mot cible :</strong> prononcez le mot chinois ci-dessous 🎙️</p>
+            <div id="targetWordArea" class="practice-word" style="font-size: 1.6rem; padding: 0.5rem 1rem;"></div>
+            <div style="display: flex; justify-content: center; margin: 1.5rem 0;">
+                <button id="recordBtn" class="mic-btn"><i class="fas fa-microphone"></i></button>
+            </div>
+            <div id="voiceFeedback" class="feedback">▶️ Cliquez sur le micro, dites le mot en chinois (ex: "你好")</div>
+            <div><small><i class="fas fa-info-circle"></i> Utilisez la reconnaissance vocale du navigateur. Parlez clairement en chinois mandarin.</small></div>
+        </div>
+    </div>
+
+    <!-- 4. 数字人微课 (Innovation + IA vocale / humaine numérique) -->
+    <div class="card">
+        <div class="section-title">
+            <i class="fas fa-robot"></i>
+            <span>🤖 Micro-cours · 数字人微课 </span>
+        </div>
+        <div class="digital-human">
+            <div class="avatar">
+                <i class="fas fa-user-astronaut"></i>
+            </div>
+            <div class="lesson-text">
+                <i class="fas fa-graduation-cap"></i> <strong>Professeur virtuel « Lín LáoShī »</strong><br>
+                <span id="digitalLessonText">Bonjour ! 今天我们来学习问候语 « 你好 » et les tons du mandarin 🎵</span>
+                <div><button id="playDigitalLessonBtn" class="btn-lesson"><i class="fas fa-play"></i>  Écouter la leçon (synthèse vocale)</button></div>
+                <div style="margin-top: 0.8rem;"><small>✨ Synthèse vocale IA + contenu pédagogique adapté aux francophones ✨</small></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 小测验 Quiz adaptatif (français ↔ chinois) -->
+    <div class="card">
+        <div class="section-title">
+            <i class="fas fa-puzzle-piece"></i>
+            <span>📝 Quiz interactif · 互动测验</span>
+        </div>
+        <div id="quizArea">
+            <p id="quizQuestion" style="font-weight: 500; margin-bottom: 1rem;"></p>
+            <div id="quizOptions"></div>
+            <div id="quizResult" class="quiz-feedback"></div>
+            <button id="nextQuizBtn" style="background: #2c5f2d; color:white; border-radius: 2rem; padding: 0.5rem 1.2rem; margin-top: 1rem;">⟳ Question suivante</button>
+        </div>
+    </div>
+    <footer>
+        <i class="fas fa-laptop-code"></i> 融合前沿技术 · 国际中文教育智慧平台 | 适合法语母语者 | 语音识别 · 数字人微课 · 自适应测验
+    </footer>
+</div>
+
+<script>
+    // ------------------------------------------------------------
+    // 数据定义：适用于法语母语者的中文词汇 + 对话 + 测验题库
+    // ------------------------------------------------------------
+    const vocabulary = [
+        { hanzi: "你好", pinyin: "nǐ hǎo", french: "Bonjour / Salut", audioText: "你好" },
+        { hanzi: "谢谢", pinyin: "xiè xie", french: "Merci", audioText: "谢谢" },
+        { hanzi: "再见", pinyin: "zài jiàn", french: "Au revoir", audioText: "再见" },
+        { hanzi: "对不起", pinyin: "duì bu qǐ", french: "Désolé / Pardon", audioText: "对不起" },
+        { hanzi: "老师", pinyin: "lǎo shī", french: "Professeur", audioText: "老师" },
+        { hanzi: "学生", pinyin: "xué sheng", french: "Étudiant", audioText: "学生" }
+    ];
+
+    const dialogues = [
+        { chinois: "你好！", pinyin: "Nǐ hǎo!", francais: "Bonjour !" },
+        { chinois: "你好吗？", pinyin: "Nǐ hǎo ma?", francais: "Comment vas-tu ?" },
+        { chinois: "我很好，谢谢。你呢？", pinyin: "Wǒ hěn hǎo, xièxie. Nǐ ne?", francais: "Je vais bien, merci. Et toi ?" },
+        { chinois: "我也很好。", pinyin: "Wǒ yě hěn hǎo.", francais: "Moi aussi, ça va bien." }
+    ];
+
+    // Quiz 题库 (français -> chinois)
+    const quizBank = [
+        { question: "Comment dit-on « Bonjour » en chinois ?", correct: "你好", options: ["你好", "谢谢", "再见", "老师"] },
+        { question: "Quel mot signifie « Merci » ?", correct: "谢谢", options: ["你好", "对不起", "谢谢", "学生"] },
+        { question: "Traduisez « Au revoir » en chinois.", correct: "再见", options: ["再见", "你好", "老师", "对不起"] },
+        { question: "Que veut dire « 对不起 » ?", correct: "Désolé", options: ["Merci", "Bonjour", "Désolé", "Professeur"] },
+        { question: "« Professeur » en chinois ?", correct: "老师", options: ["学生", "老师", "你好", "谢谢"] }
+    ];
+
+    let currentQuizIndex = 0;
+    let currentTargetWord = vocabulary[0]; // pour exercice vocal
+    let speechRecognition = null;
+    let isListening = false;
+
+    // 初始化渲染
+    function renderVocab() {
+        const grid = document.getElementById('vocabGrid');
+        if (!grid) return;
+        grid.innerHTML = vocabulary.map(word => `
+            <div class="word-card">
+                <h3>${word.hanzi}</h3>
+                <div class="pinyin">${word.pinyin}</div>
+                <div class="french">${word.french}</div>
+                <button class="sound-btn" data-word="${word.audioText}"><i class="fas fa-volume-up"></i> Écouter</button>
+            </div>
+        `).join('');
+        // 绑定发音按钮
+        document.querySelectorAll('.sound-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const word = btn.getAttribute('data-word');
+                speakChinese(word);
+            });
+        });
+    }
+
+    // 语音合成 (中文)
+    function speakChinese(text) {
+        if (!window.speechSynthesis) {
+            alert("Votre navigateur ne supporte pas la synthèse vocale.");
+            return;
+        }
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        window.speechSynthesis.cancel(); // éviter chevauchement
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // 法语引导 + 中文短语 (数字人课程，多语言融合)
+    function digitalHumanLesson() {
+        // 微课内容: 用法语讲解 + 中文教学
+        const lessonScript = `Bonjour chers étudiants ! 欢迎来到汉语课堂。 Aujourd'hui, nous allons apprendre les salutations. 问候语很重要。 « 你好 » signifie Bonjour. Répétez après moi : nǐ hǎo, 你好. Très bien ! Un autre mot : « 谢谢 » merci. Notez les tons, le troisième ton puis le quatrième. Entraînez-vous avec notre exercice vocal. 加油 !`;
+        const utterance = new SpeechSynthesisUtterance(lessonScript);
+        utterance.lang = 'fr-FR';  // 法语为主夹杂中文，自然过渡
+        utterance.rate = 0.85;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+        // 同时变更显示文字增强体验
+        const lessonTextBox = document.getElementById('digitalLessonText');
+        if(lessonTextBox) lessonTextBox.innerHTML = `📖 ${lessonScript.substring(0, 120)}... (Cours vocal en cours)`;
+        setTimeout(() => {
+            if(lessonTextBox) lessonTextBox.innerHTML = `✨ Leçon dynamique : « 你好 » (Bonjour) + les tons. Réécoutez pour pratiquer ! ✨`;
+        }, 5000);
+    }
+
+    function renderDialogue() {
+        const container = document.getElementById('dialogueContainer');
+        if (!container) return;
+        container.innerHTML = dialogues.map(d => `
+            <div class="dialogue-line">
+                <span class="chinese">${d.chinois}</span>
+                <span class="phonetic">${d.pinyin}</span>
+                <span class="french-dialog">→ ${d.francais}</span>
+                <button class="sound-btn" style="width:auto; background:#e9e2d4;" data-dialog="${d.chinois}"><i class="fas fa-head-side-vr"></i> Prononcer</button>
+            </div>
+        `).join('');
+        document.querySelectorAll('[data-dialog]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const phrase = btn.getAttribute('data-dialog');
+                speakChinese(phrase);
+            });
+        });
+    }
+
+    // 随机/更新语音练习的目标词（从词汇表选取）
+    function updateTargetWord() {
+        const randomIndex = Math.floor(Math.random() * vocabulary.length);
+        currentTargetWord = vocabulary[randomIndex];
+        const targetDiv = document.getElementById('targetWordArea');
+        if(targetDiv) {
+            targetDiv.innerHTML = `${currentTargetWord.hanzi}  (${currentTargetWord.pinyin}) <i class="fas fa-play-circle" style="cursor:pointer; margin-left:8px;" id="playTargetSound"></i>`;
+            const playIcon = document.getElementById('playTargetSound');
+            if(playIcon) {
+                playIcon.onclick = () => speakChinese(currentTargetWord.hanzi);
+            }
+        }
+    }
+
+    // 初始化语音识别 (Web Speech API)
+    function initSpeechRecognition() {
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            document.getElementById('voiceFeedback').innerHTML = "⚠️ Votre navigateur ne supporte pas la reconnaissance vocale. Utilisez Chrome/Edge/ Safari récent.";
+            return null;
+        }
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'zh-CN';   // 识别中文普通话
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        return recognition;
+    }
+
+    function startListening() {
+        if (speechRecognition) {
+            try {
+                speechRecognition.stop();
+            } catch(e) {}
+            speechRecognition = initSpeechRecognition();
+        } else {
+            speechRecognition = initSpeechRecognition();
+        }
+        if (!speechRecognition) return;
+        const feedbackDiv = document.getElementById('voiceFeedback');
+        feedbackDiv.innerHTML = "🎙️ Écoute en cours... Parlez le mot chinois maintenant.";
+        speechRecognition.start();
+        isListening = true;
+        speechRecognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript.trim();
+            const userSpoken = transcript;
+            const targetHanzi = currentTargetWord.hanzi;
+            // 相似性评估：包含目标汉字或非常接近（忽略标点）
+            let isCorrect = false;
+            if (userSpoken.includes(targetHanzi) || targetHanzi.includes(userSpoken) || 
+                userSpoken === targetHanzi || userSpoken.replace(/\s/g,'') === targetHanzi) {
+                isCorrect = true;
+            } else {
+                // 额外拼音容错 (简单近似匹配, 如 ni hao 对应你好)
+                const normalizedUser = userSpoken.toLowerCase().replace(/[^a-z\u4e00-\u9fa5]/g,'');
+                const normalizedTarget = targetHanzi;
+                if (normalizedUser.includes(normalizedTarget) || normalizedTarget.includes(normalizedUser)) isCorrect = true;
+                else if (userSpoken.includes(currentTargetWord.pinyin.split(' ')[0])) isCorrect = true; 
+            }
+            if (isCorrect) {
+                feedbackDiv.innerHTML = `✅  Bravo ! « ${userSpoken} » correspond bien à « ${targetHanzi} ». Prononciation correcte ! 👏`;
+                feedbackDiv.style.background = "#d9f0da";
+            } else {
+                feedbackDiv.innerHTML = `❌  Presque ! Vous avez dit : « ${userSpoken} ». Le mot attendu : « ${targetHanzi} (${currentTargetWord.pinyin}) ». Réessayez en écoutant le modèle. 🎧`;
+                feedbackDiv.style.background = "#ffe0db";
+                speakChinese(targetHanzi); //  replay modèle
+            }
+            isListening = false;
+        };
+        speechRecognition.onerror = (event) => {
+            feedbackDiv.innerHTML = `Erreur : ${event.error}. Vérifiez le micro et réessayez.`;
+            isListening = false;
+        };
+        speechRecognition.onend = () => {
+            if (isListening) {
+                feedbackDiv.innerHTML = "🔁 Fin de la reconnaissance, réessayez si nécessaire.";
+            }
+            isListening = false;
+        };
+    }
+
+    // 测验逻辑
+    function loadQuiz() {
+        const qData = quizBank[currentQuizIndex % quizBank.length];
+        const questionElem = document.getElementById('quizQuestion');
+        const optionsDiv = document.getElementById('quizOptions');
+        if (!questionElem || !optionsDiv) return;
+        questionElem.innerHTML = `<i class="fas fa-question-circle"></i> ${qData.question}`;
+        optionsDiv.innerHTML = '';
+        qData.options.forEach(opt => {
+            const optDiv = document.createElement('div');
+            optDiv.className = 'quiz-option';
+            optDiv.innerHTML = `<span>${opt}</span>`;
+            optDiv.onclick = () => checkAnswer(opt, qData.correct);
+            optionsDiv.appendChild(optDiv);
+        });
+        document.getElementById('quizResult').innerHTML = '';
+    }
+
+    function checkAnswer(selected, correct) {
+        const resultDiv = document.getElementById('quizResult');
+        if (selected === correct) {
+            resultDiv.innerHTML = '<span style="color:#2a6b2f;">✔️ Exact ! Bonne réponse 🎉</span>';
+            resultDiv.style.background = "#e2f3e4";
+            // 播放正确发音
+            speakChinese(correct);
+        } else {
+            resultDiv.innerHTML = `<span style="color:#b1421a;">❌ Pas encore... La bonne réponse est : ${correct}. Écoutez la prononciation : </span> <button style="background:#c73f1e;color:white;border-radius:2rem;padding:0.2rem 0.8rem;" id="speakAnsBtn">🔊 Écouter</button>`;
+            resultDiv.style.background = "#ffe3dd";
+            const btn = document.getElementById('speakAnsBtn');
+            if(btn) btn.onclick = () => speakChinese(correct);
+        }
+        // 小优化禁用暂时多次点击避免混乱
+        const allOpts = document.querySelectorAll('.quiz-option');
+        allOpts.forEach(opt => opt.style.pointerEvents = 'none');
+        setTimeout(() => {
+            allOpts.forEach(opt => opt.style.pointerEvents = 'auto');
+        }, 1000);
+    }
+
+    function nextQuiz() {
+        currentQuizIndex = (currentQuizIndex + 1) % quizBank.length;
+        loadQuiz();
+        const resultDiv = document.getElementById('quizResult');
+        if(resultDiv) resultDiv.innerHTML = '';
+        const allOpts = document.querySelectorAll('.quiz-option');
+        allOpts.forEach(opt => opt.style.pointerEvents = 'auto');
+    }
+
+    // 页面完全加载初始化
+    document.addEventListener('DOMContentLoaded', () => {
+        renderVocab();
+        renderDialogue();
+        updateTargetWord();
+        loadQuiz();
+
+        // 麦克风按钮监听
+        const micBtn = document.getElementById('recordBtn');
+        if (micBtn) {
+            micBtn.addEventListener('click', () => {
+                if (!speechRecognition) {
+                    speechRecognition = initSpeechRecognition();
+                }
+                startListening();
+            });
+        }
+
+        // 数字人微课按钮
+        const lessonBtn = document.getElementById('playDigitalLessonBtn');
+        if (lessonBtn) {
+            lessonBtn.addEventListener('click', () => {
+                digitalHumanLesson();
+            });
+        }
+
+        // 下一个测验按钮
+        const nextBtn = document.getElementById('nextQuizBtn');
+        if (nextBtn) nextBtn.addEventListener('click', nextQuiz);
+
+        // 为更新目标词便于练习: 增加一个便捷刷新按钮（随意加一个小刷新）
+        const targetArea = document.getElementById('targetWordArea');
+        if (targetArea && !document.getElementById('refreshTargetBtn')) {
+            const refreshBtn = document.createElement('button');
+            refreshBtn.id = 'refreshTargetBtn';
+            refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Nouveau mot';
+            refreshBtn.style.background = "#e2d9d2";
+            refreshBtn.style.border = "none";
+            refreshBtn.style.borderRadius = "2rem";
+            refreshBtn.style.padding = "0.3rem 0.8rem";
+            refreshBtn.style.marginLeft = "12px";
+            refreshBtn.style.cursor = "pointer";
+            refreshBtn.onclick = () => updateTargetWord();
+            targetArea.appendChild(refreshBtn);
+        }
+
+        // Bonus: 为用户提供方便，点击喇叭图标可以听目标词
+        const playTarget = document.getElementById('playTargetSound');
+        if(playTarget) playTarget.onclick = () => speakChinese(currentTargetWord.hanzi);
+    });
+</script>
+</body>
+</html>
